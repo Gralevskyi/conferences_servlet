@@ -1,0 +1,64 @@
+<%--=========================================================================== 
+Header (top area). 
+===========================================================================--%> 
+
+<%@ page import="com.hralievskyi.conferences.dao.constants.Role" %>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<%--=========================================================================== 
+Localization
+===========================================================================--%> 
+<c:if test="${empty sessionScope.locale }">
+	<c:set var = "locale" scope = "session" value = "${empty param.lang ?  'en' : param.lang }"/>
+</c:if>
+<fmt:setLocale value="${empty param.lang ?  sessionScope.locale : param.lang }" scope="session"/>
+<fmt:setBundle basename="messages" var="bundle"/>
+
+<tr>
+<td id="header">
+
+	<div id="leftHeader">
+	
+		<c:choose>
+			<c:when test="${userRole.name == 'moderator' }">
+				<a href="controller?command=listOrders">All orders</a> &nbsp;
+			</c:when>
+			<c:when test="${userRole.name == 'speaker'}">
+				<a href="controller?command=listMenu">Menu</a> &nbsp;
+			</c:when>
+			<c:when test="${userRole.name == 'user'}">
+				<a href="${pageContext.request.contextPath}">Menu</a> &nbsp;
+			</c:when>
+		</c:choose>
+	</div>
+
+	<div id="rightHeader" >
+		<c:out value="${user.username}"/>
+		
+		<c:if test="${not empty userRole}">
+			<c:out value="(${userRole.name})"/>
+		</c:if>
+	    
+		<ul>
+			<li><a href="?lang=en&command=${sessionScope.command}"><fmt:message key="label.lang.en" bundle="${bundle}"/></a></li>
+			<li><a href="?lang=uk&command=${sessionScope.command}"><fmt:message key="label.lang.uk" bundle="${bundle}"/></a></li>
+		</ul>
+	
+		<c:if test="${empty userRole}">
+			<a href="${pageContext.request.contextPath}/app?command=logout">
+				<fmt:message key="header.logout" bundle="${bundle}"/>
+			</a> 
+		</c:if>	
+	
+	</div>
+
+	<c:if test="${empty user and title ne 'Login'}">
+		<div id="rightHeader">
+			<a href="${pageContext.request.contextPath}/app?command=login">Login</a>
+		</div>
+	</c:if>
+
+	</td>
+</tr>
+
