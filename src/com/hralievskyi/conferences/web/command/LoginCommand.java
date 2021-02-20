@@ -71,7 +71,7 @@ public class LoginCommand extends Command {
 		}
 
 		if (userRole == Role.USER) {
-			forward = Path.PAGE_USER_MAIN;
+			forward = Path.COMMAND_USER_MAIN;
 		}
 
 		session.setAttribute("user", user);

@@ -22,13 +22,16 @@ Localization
 	
 		<c:choose>
 			<c:when test="${userRole.name == 'moderator' }">
-				<a href="controller?command=listOrders">All orders</a> &nbsp;
+				<a href="app?command=listOrders">All orders</a> &nbsp;
 			</c:when>
 			<c:when test="${userRole.name == 'speaker'}">
-				<a href="controller?command=listMenu">Menu</a> &nbsp;
+				<a href="app?command=listMenu">Menu</a> &nbsp;
 			</c:when>
-			<c:when test="${userRole.name == 'user'}">
-				<a href="${pageContext.request.contextPath}">Menu</a> &nbsp;
+			<c:when test="${userRole.name == 'user' and title ne 'User'}">
+				<a href="${pageContext.request.contextPath}/app?command=user">All events</a> &nbsp;
+			</c:when>
+			<c:when test="${userRole.name == 'user' and title == 'User'}">
+				<a href="${pageContext.request.contextPath}/app?command=user_cabinet">Cabinet</a> &nbsp;
 			</c:when>
 		</c:choose>
 	</div>
@@ -45,7 +48,7 @@ Localization
 			<li><a href="?lang=uk&command=${sessionScope.command}"><fmt:message key="label.lang.uk" bundle="${bundle}"/></a></li>
 		</ul>
 	
-		<c:if test="${empty userRole}">
+		<c:if test="${not empty userRole}">
 			<a href="${pageContext.request.contextPath}/app?command=logout">
 				<fmt:message key="header.logout" bundle="${bundle}"/>
 			</a> 

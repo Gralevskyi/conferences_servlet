@@ -61,7 +61,6 @@ Style for the right located head menu (DIV tag at right)
 Content styles (TD tag in the main middle row)
 ***************************************************************/
 .content {
-	height: 100%;
 	background: #BBBBFF;
 	padding-left: 10px;
 	padding-right: 10px;

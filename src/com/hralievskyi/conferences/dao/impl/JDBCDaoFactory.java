@@ -16,10 +16,11 @@ import com.hralievskyi.conferences.exception.DBException;
 import com.hralievskyi.conferences.exception.Messages;
 
 public class JDBCDaoFactory extends DaoFactory {
-	private static final Logger LOG = Logger.getLogger(ConnectionPoolHolder.class);
+	private static final Logger LOG = Logger.getLogger(JDBCDaoFactory.class);
 	private DataSource dataSource;
 
 	public JDBCDaoFactory() {
+		LOG.debug("constructor");
 		try {
 			dataSource = ConnectionPoolHolder.getDataSource();
 		} catch (DBException ex) {
@@ -31,11 +32,13 @@ public class JDBCDaoFactory extends DaoFactory {
 
 	@Override
 	public UserDao createUserDao() {
+		LOG.debug("starts");
 		return (UserDao) new JDBCUserDao(getConnection());
 	}
 
 	@Override
 	public EventDao createEventDao() {
+		LOG.debug("starts");
 		return (EventDao) new JDBCEventDao(getConnection());
 	}
 
@@ -53,8 +56,10 @@ public class JDBCDaoFactory extends DaoFactory {
 
 	private Connection getConnection() {
 		try {
+			LOG.debug("starts with dataSource: " + dataSource);
 			return dataSource.getConnection();
 		} catch (SQLException e) {
+			LOG.error("getConnection() error", e);
 			throw new RuntimeException(e);
 		}
 	}

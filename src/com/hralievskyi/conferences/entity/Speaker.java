@@ -4,29 +4,55 @@ public class Speaker extends User {
 
 	private static final long serialVersionUID = -3942811697054574062L;
 
-	private String name_en;
-	private String name_uk;
+	private String nameEn;
+	private String nameUk;
+	private String localName;
 
-	public Speaker(String name_en, String name_uk) {
+	public Speaker(String nameEn, String nameUk) {
 		super();
-		this.name_en = name_en;
-		this.name_uk = name_uk;
+		this.nameEn = nameEn;
+		this.nameUk = nameUk;
 	}
 
-	public String getName_en() {
-		return name_en;
+	public Speaker() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setName_en(String name_en) {
-		this.name_en = name_en;
+	public void createLocalName(String language) {
+		if ("uk".equals(language)) {
+			this.setLocalName(nameUk);
+		} else {
+			this.setLocalName(nameEn);
+		}
 	}
 
-	public String getName_uk() {
-		return name_uk;
+	public String getLocalName(String language) {
+		createLocalName(language);
+		return localName;
 	}
 
-	public void setName_uk(String name_uk) {
-		this.name_uk = name_uk;
+	public String getNameEn() {
+		return nameEn;
+	}
+
+	public void setNameEn(String name_en) {
+		this.nameEn = name_en;
+	}
+
+	public String getNameUk() {
+		return nameUk;
+	}
+
+	public void setNameUk(String name_uk) {
+		this.nameUk = name_uk;
+	}
+
+	public String getLocalName() {
+		return localName;
+	}
+
+	public void setLocalName(String localName) {
+		this.localName = localName;
 	}
 
 }

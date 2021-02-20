@@ -4,26 +4,41 @@ public class Report extends Entity {
 
 	private static final long serialVersionUID = 2206611413040282994L;
 
-	private String topic_en;
-	private String topic_uk;
+	private String topicEn;
+	private String topicUk;
+	private String localTopic;
 	private User author;
 	private boolean accepted;
 	private boolean suggested;
+	private Speaker speaker;
 
-	public String getTopic_en() {
-		return topic_en;
+	public void createLocalTopic(String language) {
+		if ("uk".equals(language)) {
+			this.localTopic = topicUk;
+		} else {
+			this.localTopic = topicEn;
+		}
 	}
 
-	public void setTopic_en(String topic_en) {
-		this.topic_en = topic_en;
+	public String getLocalTopic(String language) {
+		createLocalTopic(language);
+		return localTopic;
 	}
 
-	public String getTopic_uk() {
-		return topic_uk;
+	public String getTopicEn() {
+		return topicEn;
 	}
 
-	public void setTopic_uk(String topic_uk) {
-		this.topic_uk = topic_uk;
+	public void setTopicEn(String topicEn) {
+		this.topicEn = topicEn;
+	}
+
+	public String getTopicUk() {
+		return topicUk;
+	}
+
+	public void setTopicUk(String topicUk) {
+		this.topicUk = topicUk;
 	}
 
 	public User getAuthor() {
@@ -48,6 +63,22 @@ public class Report extends Entity {
 
 	public void setSuggested(boolean suggested) {
 		this.suggested = suggested;
+	}
+
+	public Speaker getSpeaker() {
+		return speaker;
+	}
+
+	public void setSpeaker(Speaker speaker) {
+		this.speaker = speaker;
+	}
+
+	public String getLocalTopic() {
+		return localTopic;
+	}
+
+	public void setLocalTopic(String localTopic) {
+		this.localTopic = localTopic;
 	}
 
 }

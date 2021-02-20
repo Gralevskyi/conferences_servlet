@@ -17,7 +17,7 @@ public class ConnectionPoolHolder {
 	private static volatile DataSource dataSource;
 
 	public static DataSource getDataSource() throws DBException {
-
+		LOG.debug("start with dataSource " + dataSource);
 		if (dataSource == null) {
 			synchronized (ConnectionPoolHolder.class) {
 				if (dataSource == null) {
@@ -34,6 +34,7 @@ public class ConnectionPoolHolder {
 				}
 			}
 		}
+		LOG.debug(" return dataSource " + dataSource);
 		return dataSource;
 
 	}

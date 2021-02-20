@@ -22,6 +22,8 @@ public class Messages {
 
 	public static final String ERR_CANNOT_OBTAIN_DATA_SOURCE = "Cannot obtain the data source";
 
+	public static final String ERR_CANNOT_OBTAIN_EVENTS = "Cannot obtain events";
+
 	public static final String ERR_NO_COMMAND = "Can not send response.";
 
 	// register validation

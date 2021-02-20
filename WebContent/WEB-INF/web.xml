@@ -62,7 +62,7 @@
 		</init-param>
 		<init-param>
 			<param-name>user</param-name>
-			<param-value>user</param-value>
+			<param-value>user user_event subscribe user_cabinet</param-value>
 		</init-param>
 		<init-param>
 			<param-name>common</param-name>

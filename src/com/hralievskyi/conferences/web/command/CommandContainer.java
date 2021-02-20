@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.hralievskyi.conferences.web.command.user.SubscribeCommand;
+import com.hralievskyi.conferences.web.command.user.UserCabinetCommand;
+import com.hralievskyi.conferences.web.command.user.UserEventDetailsCommand;
 import com.hralievskyi.conferences.web.command.user.UserMainPageCommand;
 
 public class CommandContainer {
@@ -21,6 +24,9 @@ public class CommandContainer {
 		commands.put("logout", new LogoutCommand());
 		commands.put("viewSettings", new ViewSettingsCommand());
 		commands.put("user", new UserMainPageCommand());
+		commands.put("user_event", new UserEventDetailsCommand());
+		commands.put("subscribe", new SubscribeCommand());
+		commands.put("user_cabinet", new UserCabinetCommand());
 		commands.put("moderator-cabinet", new ModeratorCabinetCommand());
 		commands.put("noCommand", new NoCommand());
 

@@ -23,4 +23,8 @@ public abstract class Command implements Serializable {
 	public final String toString() {
 		return getClass().getSimpleName();
 	}
+
+	public String additionalParameters(HttpServletRequest request) {
+		return "";
+	}
 }

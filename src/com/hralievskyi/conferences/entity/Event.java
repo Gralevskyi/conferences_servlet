@@ -2,15 +2,12 @@ package com.hralievskyi.conferences.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.log4j.Logger;
 
 public class Event extends Entity {
 
 	private static final long serialVersionUID = -8199167009604653369L;
-
-	private static final Logger LOG = Logger.getLogger(Event.class);
 
 	private String nameEn;
 	private String nameUk;
@@ -20,7 +17,15 @@ public class Event extends Entity {
 	private String localPlace;
 	private LocalDate date;
 	private LocalTime time;
-	private Set<Report> reports;
+	private Set<Report> reports = new HashSet<>();
+	private Set<User> subscribers = new HashSet<>();
+
+	public Event(long id) {
+		super(id);
+	}
+
+	public Event() {
+	}
 
 	public String getNameEn() {
 		return nameEn;
@@ -38,7 +43,7 @@ public class Event extends Entity {
 		this.nameUk = nameUk;
 	}
 
-	public void setLocalName(String language) {
+	public void createLocalName(String language) {
 		if ("uk".equals(language)) {
 			this.localName = nameUk;
 		} else {
@@ -46,12 +51,16 @@ public class Event extends Entity {
 		}
 	}
 
+	public void setLocalName(String localName) {
+		this.localName = localName;
+	}
+
 	public String getLocalName() {
 		return localName;
 	}
 
 	public String getLocalName(String language) {
-		setLocalName(language);
+		createLocalName(language);
 		return localName;
 	}
 
@@ -111,6 +120,14 @@ public class Event extends Entity {
 
 	public void setReports(Set<Report> reports) {
 		this.reports = reports;
+	}
+
+	public Set<User> getSubscribers() {
+		return subscribers;
+	}
+
+	public void setSubscribers(Set<User> subscribers) {
+		this.subscribers = subscribers;
 	}
 
 }

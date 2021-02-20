@@ -20,7 +20,6 @@ import com.hralievskyi.conferences.exception.Messages;
 
 public class JDBCUserDao extends JDBCGenericDao<User> implements UserDao {
 	private static final Logger LOG = Logger.getLogger(JDBCUserDao.class);
-	private Connection connection;
 
 	public JDBCUserDao(Connection connection) {
 		this.connection = connection;
@@ -36,7 +35,6 @@ public class JDBCUserDao extends JDBCGenericDao<User> implements UserDao {
 			pstmt.setString(2, user.getPassword());
 			pstmt.setInt(3, user.getRoleId());
 			pstmt.executeUpdate();
-			connection.commit();
 		} catch (SQLException ex) {
 			rollback();
 			throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_LOGIN, ex);
@@ -55,10 +53,9 @@ public class JDBCUserDao extends JDBCGenericDao<User> implements UserDao {
 	public List<User> findAll() {
 		Map<Long, User> users = new HashMap<>();
 
-		final String query = "select * from users";
+		final String query = "SEKECT * FROM users";
 		try (Statement st = connection.createStatement()) {
 			ResultSet rs = st.executeQuery(query);
-
 			UserMapper userMapper = new UserMapper();
 
 			while (rs.next()) {
@@ -103,7 +100,6 @@ public class JDBCUserDao extends JDBCGenericDao<User> implements UserDao {
 			if (rs.next()) {
 				user = userMapper.extractFromResultSet(rs);
 			}
-			connection.commit();
 		} catch (SQLException ex) {
 			rollback();
 			throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_LOGIN, ex);

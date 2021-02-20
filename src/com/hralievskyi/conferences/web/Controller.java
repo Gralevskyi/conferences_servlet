@@ -34,9 +34,9 @@ public class Controller extends HttpServlet {
 	/**
 	 * Main method of this controller.
 	 */
-	private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private synchronized void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		LOG.debug("Controller starts");
+		LOG.debug("Controller " + this.toString() + " starts");
 		// extract command name from the request
 		String commandName = request.getParameter("command");
 		LOG.trace("Request parameter: command --> " + commandName);
@@ -53,11 +53,10 @@ public class Controller extends HttpServlet {
 			request.setAttribute("errorMessage", ex.getMessage());
 		}
 		HttpSession session = request.getSession();
-		session.setAttribute("command", commandName);
+		session.setAttribute("command", commandName + command.additionalParameters(request));
 		if (request.getParameter("lang") != null) {
 			session.setAttribute("locale", request.getParameter("lang"));
 		}
-		LOG.debug("commandName: " + commandName + " session locale: " + session.getAttribute("locale"));
 		LOG.trace("Forward address --> " + forward);
 
 		LOG.debug("Controller finished, now go to forward address --> " + forward);

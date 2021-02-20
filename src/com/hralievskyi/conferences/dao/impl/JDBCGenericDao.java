@@ -12,7 +12,7 @@ import com.hralievskyi.conferences.exception.Messages;
 public abstract class JDBCGenericDao<T> {
 
 	private static final Logger LOG = Logger.getLogger(JDBCGenericDao.class);
-	private Connection connection;
+	protected Connection connection;
 
 	public void rollback() {
 		if (connection != null) {
