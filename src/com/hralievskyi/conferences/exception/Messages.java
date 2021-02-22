@@ -24,6 +24,10 @@ public class Messages {
 
 	public static final String ERR_CANNOT_OBTAIN_EVENTS = "Cannot obtain events";
 
+	public static final String ERR_CANNOT_SUBSCRIBE = "Cannot subscribe events";
+
+	public static final String ERR_CANNOT_VISIT = "Cannot visit events";
+
 	public static final String ERR_NO_COMMAND = "Can not send response.";
 
 	// register validation
@@ -43,5 +47,15 @@ public class Messages {
 	public static final String ERR_CAN_NOT_CREATE_USER = "Can't create user.";
 
 	public static final String WARN_USER_ALREADY_EXISTS = "User already exists";
+
+	// moderator
+	public static final String ERR_CAN_NOT_CREATE_EVENT = "Can't create event.";
+	public static final String ERR_CAN_NOT_CREATE_REPORT = "Can't create report.";
+	public static final String ERR_CAN_NOT_BE_EMPTY = "Parameter cannot be empty.";
+	public static final String ERR_WRANG_DATE_FORMAT = "Wrong format of ";
+	public static final String ERR_CANNOT_OBTAIN_ALL_SPEAKERS = "Cannot obtain all speakers";
+	public static final String ERR_CAN_NOT_UPDATE_EVENT = "Can't update event.";
+	public static final String ERR_CANNOT_OBTAIN_REPORTS = "Cannot obtain reports";
+	public static final String ERR_CANNOT_UPDATE_REPORT = "Cannot update report";
 
 }

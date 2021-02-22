@@ -13,7 +13,7 @@
 		<c:forEach var="event" items="${events}">
 			<tr>
 			<td class="content">
-				<h3>Event details</h3>
+				<h3>${event.getLocalName(sessionScope.locale)} event details</h3>
 				<table>
 					<thead>
 						<tr>
@@ -21,6 +21,9 @@
 							<td>Place</td>
 							<td>Date</td>
 							<td>Time</td>
+							<c:if test="${not event.visited}">
+								<td>visited</td>
+							</c:if>
 						</tr>
 					</thead>
 						<tr>
@@ -28,6 +31,17 @@
 							<td>${event.getLocalPlace(sessionScope.locale)}</td>
 							<td>${event.date}</td>
 							<td>${event.time}</td>
+								<c:if test="${not event.visited}">
+									<td>
+										<form action="${pageContext.request.contextPath}/app" method="post">	    				
+						    				<input type="hidden" name="id" value="${event.id}"/>
+						    				<input type="hidden" name="command" value="visit"/>
+						    				<fmt:message key="user.event.visit" bundle="${bundle}" var="visitButton"/>
+							    			<input type="submit" value="${visitButton}"/>
+										</form>
+									</td>
+								</c:if>
+							
 						</tr>
 				</table>	
 				
@@ -53,7 +67,6 @@
 		</tr>
 		</br>
 		</c:forEach>
-		
 		<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 	</table>
 </body>

@@ -17,6 +17,9 @@ public class Event extends Entity {
 	private String localPlace;
 	private LocalDate date;
 	private LocalTime time;
+	private boolean visited;
+	private int subscribersNumber;
+	private int visitors;
 	private Set<Report> reports = new HashSet<>();
 	private Set<User> subscribers = new HashSet<>();
 
@@ -25,6 +28,30 @@ public class Event extends Entity {
 	}
 
 	public Event() {
+	}
+
+	public Event(String nameEn, String nameUk, String placeEn, String placeUk, LocalDate date, LocalTime time) {
+		super();
+		this.nameEn = nameEn;
+		this.nameUk = nameUk;
+		this.placeEn = placeEn;
+		this.placeUk = placeUk;
+		this.date = date;
+		this.time = time;
+	}
+
+	public Event(long id, String nameEn, String nameUk, String placeEn, String placeUk, LocalDate date, LocalTime time) {
+		super(id);
+		this.nameEn = nameEn;
+		this.nameUk = nameUk;
+		this.placeEn = placeEn;
+		this.placeUk = placeUk;
+		this.date = date;
+		this.time = time;
+	}
+
+	public void addReport(Report report) {
+		reports.add(report);
 	}
 
 	public String getNameEn() {
@@ -128,6 +155,30 @@ public class Event extends Entity {
 
 	public void setSubscribers(Set<User> subscribers) {
 		this.subscribers = subscribers;
+	}
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
+
+	public int getSubscribersNumber() {
+		return subscribersNumber;
+	}
+
+	public void setSubscribersNumber(int subscribersNumber) {
+		this.subscribersNumber = subscribersNumber;
+	}
+
+	public int getVisitors() {
+		return visitors;
+	}
+
+	public void setVisitors(int visitors) {
+		this.visitors = visitors;
 	}
 
 }

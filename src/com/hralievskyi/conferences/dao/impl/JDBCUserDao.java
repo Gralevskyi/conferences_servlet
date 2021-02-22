@@ -13,7 +13,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.hralievskyi.conferences.dao.UserDao;
+import com.hralievskyi.conferences.dao.mapper.SpeakerMapper;
 import com.hralievskyi.conferences.dao.mapper.UserMapper;
+import com.hralievskyi.conferences.entity.Speaker;
 import com.hralievskyi.conferences.entity.User;
 import com.hralievskyi.conferences.exception.DBException;
 import com.hralievskyi.conferences.exception.Messages;
@@ -53,7 +55,7 @@ public class JDBCUserDao extends JDBCGenericDao<User> implements UserDao {
 	public List<User> findAll() {
 		Map<Long, User> users = new HashMap<>();
 
-		final String query = "SEKECT * FROM users";
+		final String query = "SELECT * FROM users";
 		try (Statement st = connection.createStatement()) {
 			ResultSet rs = st.executeQuery(query);
 			UserMapper userMapper = new UserMapper();
@@ -65,6 +67,24 @@ public class JDBCUserDao extends JDBCGenericDao<User> implements UserDao {
 			return new ArrayList<>(users.values());
 		} catch (SQLException ex) {
 			LOG.error(Messages.ERR_CANNOT_OBTAIN_ALL_USERS, ex);
+			return null;
+		}
+	}
+
+	@Override
+	public List<Speaker> findAllSpeakers() {
+		List<Speaker> speakers = new ArrayList<>();
+		final String query = "SELECT * FROM speakers";
+		try (Statement st = connection.createStatement()) {
+			ResultSet rs = st.executeQuery(query);
+			SpeakerMapper speakerMapper = new SpeakerMapper();
+			while (rs.next()) {
+				Speaker speaker = speakerMapper.extractFromResultSet(rs);
+				speakers.add(speaker);
+			}
+			return speakers;
+		} catch (SQLException ex) {
+			LOG.error(Messages.ERR_CANNOT_OBTAIN_ALL_SPEAKERS, ex);
 			return null;
 		}
 	}

@@ -21,11 +21,11 @@ Localization
 	<div id="leftHeader">
 	
 		<c:choose>
-			<c:when test="${userRole.name == 'moderator' }">
-				<a href="app?command=listOrders">All orders</a> &nbsp;
+			<c:when test="${userRole.name == 'moderator' and title ne 'Moderator'}">
+				<a href="${pageContext.request.contextPath}/app?command=moderator">All events</a> &nbsp;
 			</c:when>
-			<c:when test="${userRole.name == 'speaker'}">
-				<a href="app?command=listMenu">Menu</a> &nbsp;
+			<c:when test="${userRole.name == 'speaker' and title ne 'User'}">
+				<a href="${pageContext.request.contextPath}/app?command=user">All events</a> &nbsp;
 			</c:when>
 			<c:when test="${userRole.name == 'user' and title ne 'User'}">
 				<a href="${pageContext.request.contextPath}/app?command=user">All events</a> &nbsp;
@@ -34,25 +34,39 @@ Localization
 				<a href="${pageContext.request.contextPath}/app?command=user_cabinet">Cabinet</a> &nbsp;
 			</c:when>
 		</c:choose>
+		<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
+			<a href="${pageContext.request.contextPath}/app?command=create_event">Create event</a> &nbsp;
+		</c:if>
+		<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
+			<a href="${pageContext.request.contextPath}/app?command=moderator_create_report">Create report</a> &nbsp;
+		</c:if>
+		<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
+			<a href="${pageContext.request.contextPath}/app?command=moderator_speakers">Speakers-reports</a> &nbsp;
+		</c:if>
+		<c:if test="${userRole.name == 'speaker' and title == 'User'}">
+			<a href="${pageContext.request.contextPath}/app?command=speaker_cabinet">Cabinet</a> &nbsp;
+		</c:if>
 	</div>
 
 	<div id="rightHeader" >
-		<c:out value="${user.username}"/>
-		
-		<c:if test="${not empty userRole}">
-			<c:out value="(${userRole.name})"/>
-		</c:if>
-	    
 		<ul>
+			<li><c:out value="${user.username}"/></li>
+			<li>
+				<c:if test="${not empty userRole}">
+					<c:out value="(${userRole.name})"/>
+				</c:if>
+			</li>
 			<li><a href="?lang=en&command=${sessionScope.command}"><fmt:message key="label.lang.en" bundle="${bundle}"/></a></li>
 			<li><a href="?lang=uk&command=${sessionScope.command}"><fmt:message key="label.lang.uk" bundle="${bundle}"/></a></li>
+			<li>
+				<c:if test="${not empty userRole}">
+					<a href="${pageContext.request.contextPath}/app?command=logout">
+						<fmt:message key="header.logout" bundle="${bundle}"/>
+					</a> 
+				</c:if>	
+			</li>
 		</ul>
-	
-		<c:if test="${not empty userRole}">
-			<a href="${pageContext.request.contextPath}/app?command=logout">
-				<fmt:message key="header.logout" bundle="${bundle}"/>
-			</a> 
-		</c:if>	
+
 	
 	</div>
 

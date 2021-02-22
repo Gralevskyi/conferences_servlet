@@ -19,14 +19,12 @@ import com.hralievskyi.conferences.service.UserService;
 
 public class RegisterCommand extends Command {
 	private static final long serialVersionUID = 8589164311331573361L;
-
+	private static final Logger LOG = Logger.getLogger(RegisterCommand.class);
 	private UserService userService;
 
 	public RegisterCommand() {
 		this.userService = new UserService();
 	}
-
-	private static final Logger LOG = Logger.getLogger(LoginCommand.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

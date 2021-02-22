@@ -1,17 +1,18 @@
 package com.hralievskyi.conferences.entity;
 
 public class User extends Entity {
-
 	private static final long serialVersionUID = -6889036256149495388L;
 
 	private String username;
-
 	private String password;
-
 	private int roleId;
 
 	public User() {
+		super();
+	}
 
+	public User(long id) {
+		super(id);
 	}
 
 	public User(String username, String password, int roleId) {

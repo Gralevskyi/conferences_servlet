@@ -36,7 +36,7 @@ public class SubscribeCommand extends Command {
 			throw new DBException("user.subscribe.error", ex);
 		}
 		LOG.debug("Command finished");
-		return Path.PAGE_USER_MAIN;
+		return Path.COMMAND_USER_MAIN;
 	}
 
 }

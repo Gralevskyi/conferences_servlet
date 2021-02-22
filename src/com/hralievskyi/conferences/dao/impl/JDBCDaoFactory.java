@@ -44,8 +44,8 @@ public class JDBCDaoFactory extends DaoFactory {
 
 	@Override
 	public ReportDao createReportDao() {
-		// TODO Auto-generated method stub
-		return null;
+		LOG.debug("starts");
+		return (ReportDao) new JDBCReportDao(getConnection());
 	}
 
 	@Override

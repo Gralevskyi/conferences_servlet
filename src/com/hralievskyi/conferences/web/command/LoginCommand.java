@@ -63,11 +63,11 @@ public class LoginCommand extends Command {
 		String forward = Path.PAGE_ERROR_PAGE;
 
 		if (userRole == Role.MODERATOR) {
-			forward = Path.PAGE_MODERATOR_CABINET;
+			forward = Path.COMMAND_MODERATOR_MAIN;
 		}
 
 		if (userRole == Role.SPEAKER) {
-			forward = Path.PAGE_SPEAKER_CABINET;
+			forward = Path.COMMAND_USER_MAIN;
 		}
 
 		if (userRole == Role.USER) {

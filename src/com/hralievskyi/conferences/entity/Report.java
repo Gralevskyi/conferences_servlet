@@ -12,6 +12,18 @@ public class Report extends Entity {
 	private boolean suggested;
 	private Speaker speaker;
 
+	public Report() {
+		super();
+	}
+
+	public Report(String topicEn, String topicUk, User author, Speaker speaker) {
+		super();
+		this.topicEn = topicEn;
+		this.topicUk = topicUk;
+		this.author = author;
+		this.speaker = speaker;
+	}
+
 	public void createLocalTopic(String language) {
 		if ("uk".equals(language)) {
 			this.localTopic = topicUk;

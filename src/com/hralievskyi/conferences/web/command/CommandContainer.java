@@ -7,10 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.hralievskyi.conferences.web.command.moderator.AddReportsCommand;
+import com.hralievskyi.conferences.web.command.moderator.CreateEventCommand;
+import com.hralievskyi.conferences.web.command.moderator.ManageSpeakersCommand;
+import com.hralievskyi.conferences.web.command.moderator.ModeratorCreateReportCommand;
+import com.hralievskyi.conferences.web.command.moderator.ModeratorEventDetailsCommand;
+import com.hralievskyi.conferences.web.command.moderator.ModeratorMainPageCommand;
+import com.hralievskyi.conferences.web.command.moderator.UpdateEventCommand;
+import com.hralievskyi.conferences.web.command.speaker.SpeakerActionsCommand;
+import com.hralievskyi.conferences.web.command.speaker.SpeakerCabinetCommand;
 import com.hralievskyi.conferences.web.command.user.SubscribeCommand;
 import com.hralievskyi.conferences.web.command.user.UserCabinetCommand;
 import com.hralievskyi.conferences.web.command.user.UserEventDetailsCommand;
 import com.hralievskyi.conferences.web.command.user.UserMainPageCommand;
+import com.hralievskyi.conferences.web.command.user.UserVisitCommand;
 
 public class CommandContainer {
 	private static final Logger LOG = Logger.getLogger(CommandContainer.class);
@@ -18,17 +28,33 @@ public class CommandContainer {
 	private static Map<String, Command> commands = new TreeMap<String, Command>();
 
 	static {
+
 		// common commands
 		commands.put("register", new RegisterCommand());
 		commands.put("login", new LoginCommand());
 		commands.put("logout", new LogoutCommand());
 		commands.put("viewSettings", new ViewSettingsCommand());
+		// user commands
 		commands.put("user", new UserMainPageCommand());
 		commands.put("user_event", new UserEventDetailsCommand());
 		commands.put("subscribe", new SubscribeCommand());
 		commands.put("user_cabinet", new UserCabinetCommand());
-		commands.put("moderator-cabinet", new ModeratorCabinetCommand());
+		commands.put("visit", new UserVisitCommand());
+		commands.put("moderator", new ModeratorMainPageCommand());
 		commands.put("noCommand", new NoCommand());
+
+		// moderator commands
+		commands.put("moderator_cabinet", new ModeratorMainPageCommand());
+		commands.put("moderator_event", new ModeratorEventDetailsCommand());
+		commands.put("create_event", new CreateEventCommand());
+		commands.put("moderator_create_report", new ModeratorCreateReportCommand());
+		commands.put("update", new UpdateEventCommand());
+		commands.put("add_reports", new AddReportsCommand());
+		commands.put("moderator_speakers", new ManageSpeakersCommand());
+
+		// speaker commands
+		commands.put("speaker_cabinet", new SpeakerCabinetCommand());
+		commands.put("action", new SpeakerActionsCommand());
 
 		LOG.debug("Command container was successfully initialized");
 		LOG.trace("Number of commands --> " + commands.size());

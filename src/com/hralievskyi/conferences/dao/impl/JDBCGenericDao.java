@@ -28,6 +28,7 @@ public abstract class JDBCGenericDao<T> {
 		if (connection != null) {
 			try {
 				connection.close();
+				LOG.debug("Connection is closed");
 			} catch (SQLException ex) {
 				LOG.error(Messages.ERR_CANNOT_CLOSE_CONNECTION, ex);
 			}
@@ -56,6 +57,7 @@ public abstract class JDBCGenericDao<T> {
 	}
 
 	public void closeAll(Statement stmt, ResultSet rs) {
+		LOG.debug("closeAll()");
 		closeRs(rs);
 		closeSt(stmt);
 		closeConn();

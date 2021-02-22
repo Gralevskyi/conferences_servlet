@@ -11,7 +11,8 @@
 		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<tr>
 		<td class="content center">
-		<form id="login_form" action="${pageContext.request.contextPath}/app/register" method="post">
+		<form id="login_form" action="${pageContext.request.contextPath}/app" method="post">
+			<input type="hidden" name="command" value="register"/>
 			<fieldset >
 				<legend>Email:</legend>
 				<input name="email" value="${email}"/><br/>

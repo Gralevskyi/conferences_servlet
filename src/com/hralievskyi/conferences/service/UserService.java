@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import com.hralievskyi.conferences.dao.DaoFactory;
 import com.hralievskyi.conferences.dao.UserDao;
 import com.hralievskyi.conferences.dao.impl.JDBCUserDao;
+import com.hralievskyi.conferences.entity.Speaker;
 import com.hralievskyi.conferences.entity.User;
 import com.hralievskyi.conferences.exception.DBException;
 import com.hralievskyi.conferences.exception.Messages;
@@ -40,4 +41,11 @@ public class UserService {
 		}
 		return user;
 	}
+
+	public List<Speaker> getAllSpeakers() throws Exception {
+		try (UserDao dao = daoFactory.createUserDao()) {
+			return dao.findAllSpeakers();
+		}
+	}
+
 }

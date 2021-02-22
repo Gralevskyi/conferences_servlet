@@ -54,15 +54,15 @@
 		<filter-class>com.hralievskyi.conferences.web.filter.CommandAccessFilter</filter-class>
 		<init-param>
 			<param-name>moderator</param-name>
-			<param-value>/moderator-cabinet</param-value>
+			<param-value>moderator moderator_event update add_reports create_event moderator_create_report moderator_speakers</param-value>
 		</init-param>
 		<init-param>
 			<param-name>speaker</param-name>
-			<param-value>speaker-cabinet</param-value>
+			<param-value>user user_event speaker_cabinet action</param-value>
 		</init-param>
 		<init-param>
 			<param-name>user</param-name>
-			<param-value>user user_event subscribe user_cabinet</param-value>
+			<param-value>user user_event subscribe user_cabinet visit</param-value>
 		</init-param>
 		<init-param>
 			<param-name>common</param-name>

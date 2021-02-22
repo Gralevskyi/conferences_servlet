@@ -13,7 +13,7 @@ public interface GenericDao<T> extends AutoCloseable {
 
 	List<T> findAll();
 
-	void update(T entity);
+	void update(T entity) throws DBException;
 
 	void delete(int id);
 

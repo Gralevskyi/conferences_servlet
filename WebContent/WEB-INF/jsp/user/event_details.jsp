@@ -49,7 +49,7 @@
 					</c:forEach>
 				</table>	
 				</br>				
-				<c:if test="${not isSubscribed}">
+				<c:if test="${userRole.name == 'user' and not subscribed}">
 					<form action="${pageContext.request.contextPath}/app" method="post">	    				
 	    				<input type="hidden" name="id" value="${event.id}"/>
 	    				<input type="hidden" name="command" value="subscribe"/>
