@@ -70,27 +70,27 @@ public class RegisterCommand extends Command {
 	private void validateUsername(String username, Map<String, String> errors) {
 		if (username == null) {
 			LOG.warn("User entered empty email");
-			errors.put("username", Messages.ERR_EMAIL_CAN_NOT_BE_EMPTY);
+			errors.put("username", "register.error.email.empty");
 		} else if (!username.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")) {
 			LOG.warn("User entered not correct email");
-			errors.put("username", Messages.ERR_EMAIL_MUST_BE_CORRECT);
+			errors.put("username", "register.error.email.correct");
 		}
 	}
 
 	private void validatePassword(String password, String passwordConfirm, Map<String, String> errors) {
 		if (password.length() < 5 || password.length() > 25) {
 			LOG.warn("User entered invalid password");
-			errors.put("password", Messages.ERR_PASSWORD_CAN_NOT_BE_EMPTY);
+			errors.put("password", "register.password.length");
 		} else if (!password.equals(passwordConfirm)) {
 			LOG.warn("User entered no correct password confirmation");
-			errors.put("password", Messages.ERR_PASSWORD_DO_NOT_MATCH);
+			errors.put("password", "register.password.match");
 		}
 	}
 
 	private void validateAlreadyExists(String username, Map<String, String> errors) {
 		if (userService.findUserByUsername(username) != null) {
 			LOG.warn("User with email: " + username + " already exists");
-			errors.put("username", Messages.WARN_USER_ALREADY_EXISTS);
+			errors.put("username", "register.use.already.exists");
 		}
 	}
 

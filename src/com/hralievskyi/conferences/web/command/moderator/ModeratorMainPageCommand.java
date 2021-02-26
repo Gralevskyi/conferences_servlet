@@ -1,6 +1,7 @@
 package com.hralievskyi.conferences.web.command.moderator;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,12 +27,21 @@ public class ModeratorMainPageCommand extends Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 		LOG.debug("Command starts");
-
 		try {
-			request.setAttribute("events", eventService.getAllForModerator());
+			String whereClause = null;
+			if ("where".equals(request.getParameter("act"))) {
+				whereClause = " WHERE e.date " + request.getParameter("equality") + " '" + request.getParameter("date") + "' ";
+			}
+			request.setAttribute("events", eventService.getAllForModerator(request.getParameter("order_by"), whereClause));
 		} catch (Exception ex) {
 			throw new DBException("user.main.error", ex);
 		}
+		if (request.getParameter("date") == null) {
+			request.setAttribute("date", LocalDate.now());
+		} else {
+			request.setAttribute("date", request.getParameter("date"));
+		}
+		request.setAttribute("orderBy", request.getParameter("order_by"));
 		LOG.debug("Command finished");
 		return Path.PAGE_MODERATOR_MAIN;
 	}

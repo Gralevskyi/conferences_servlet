@@ -22,7 +22,7 @@ public class ReportService {
 	public List<Report> findNewReportsFor(long eventid) throws Exception {
 		LOG.debug("starts");
 		try (ReportDao dao = daoFactory.createReportDao()) {
-			return dao.findNewEventsFor(eventid);
+			return dao.findNewReportsFor(eventid);
 		}
 	}
 
@@ -58,6 +58,20 @@ public class ReportService {
 		LOG.debug("starts");
 		try (ReportDao dao = daoFactory.createReportDao()) {
 			dao.clearSpeaker(reportId);
+		}
+	}
+
+	public void acceptSuggested(long reportId) throws Exception {
+		LOG.debug("starts");
+		try (ReportDao dao = daoFactory.createReportDao()) {
+			dao.acceptSuggested(reportId);
+		}
+	}
+
+	public void delete(long reportId) throws Exception {
+		LOG.debug("starts");
+		try (ReportDao dao = daoFactory.createReportDao()) {
+			dao.delete(reportId);
 		}
 	}
 

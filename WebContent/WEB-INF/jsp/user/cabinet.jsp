@@ -13,16 +13,16 @@
 		<c:forEach var="event" items="${events}">
 			<tr>
 			<td class="content">
-				<h3>${event.getLocalName(sessionScope.locale)} event details</h3>
+				<h3><fmt:message key="user.event.details" bundle="${bundle}"/>: ${event.getLocalName(sessionScope.locale)}</h3>
 				<table>
 					<thead>
 						<tr>
-							<td>Name</td>
-							<td>Place</td>
-							<td>Date</td>
-							<td>Time</td>
+							<td><fmt:message key="table.name" bundle="${bundle}"/></td>
+							<td><fmt:message key="table.place" bundle="${bundle}"/></td>
+							<td><fmt:message key="table.date" bundle="${bundle}"/></td>
+							<td><fmt:message key="table.time" bundle="${bundle}"/></td>
 							<c:if test="${not event.visited}">
-								<td>visited</td>
+								<td><fmt:message key="table.visited" bundle="${bundle}"/></td>
 							</c:if>
 						</tr>
 					</thead>
@@ -52,8 +52,8 @@
 				<table class="cust_table">
 					<thead>
 						<tr>
-							<td>Topic</td>
-							<td>Speaker</td>
+							<td><fmt:message key="table.topic" bundle="${bundle}"/></td>
+							<td><fmt:message key="table.speaker" bundle="${bundle}"/></td>
 						</tr>
 					</thead>
 					<c:forEach var="report" items="${event.reports}">

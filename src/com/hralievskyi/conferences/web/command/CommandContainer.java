@@ -13,9 +13,11 @@ import com.hralievskyi.conferences.web.command.moderator.ManageSpeakersCommand;
 import com.hralievskyi.conferences.web.command.moderator.ModeratorCreateReportCommand;
 import com.hralievskyi.conferences.web.command.moderator.ModeratorEventDetailsCommand;
 import com.hralievskyi.conferences.web.command.moderator.ModeratorMainPageCommand;
+import com.hralievskyi.conferences.web.command.moderator.SuggestedCommand;
 import com.hralievskyi.conferences.web.command.moderator.UpdateEventCommand;
 import com.hralievskyi.conferences.web.command.speaker.SpeakerActionsCommand;
 import com.hralievskyi.conferences.web.command.speaker.SpeakerCabinetCommand;
+import com.hralievskyi.conferences.web.command.speaker.SpeakerCreateReportCommand;
 import com.hralievskyi.conferences.web.command.user.SubscribeCommand;
 import com.hralievskyi.conferences.web.command.user.UserCabinetCommand;
 import com.hralievskyi.conferences.web.command.user.UserEventDetailsCommand;
@@ -51,10 +53,12 @@ public class CommandContainer {
 		commands.put("update", new UpdateEventCommand());
 		commands.put("add_reports", new AddReportsCommand());
 		commands.put("moderator_speakers", new ManageSpeakersCommand());
+		commands.put("suggested", new SuggestedCommand());
 
 		// speaker commands
 		commands.put("speaker_cabinet", new SpeakerCabinetCommand());
 		commands.put("action", new SpeakerActionsCommand());
+		commands.put("speaker_create", new SpeakerCreateReportCommand());
 
 		LOG.debug("Command container was successfully initialized");
 		LOG.trace("Number of commands --> " + commands.size());

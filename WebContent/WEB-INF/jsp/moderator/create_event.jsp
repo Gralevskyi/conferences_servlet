@@ -14,60 +14,67 @@
 				<form id="login_form" action="${pageContext.request.contextPath}/app" method="post">
 					<input type="hidden" name="command" value="create_event"/>
 					<fieldset >
-						<legend>Name Ukraine:</legend>
+						<legend><fmt:message key="event.create.name.ukr" bundle="${bundle}"/></legend>
 						<input name="nameUk" value="${nameUk}"/><br/>
 						</br>
 						<c:if test="${not empty errors.nameUk}">
-		        				<c:out value="${errors.nameUk}" />
+							<fmt:message key="${errors.nameUk}" bundle="${bundle}" var="errors_nameUk"/>
+		        			<c:out value="${errors_nameUk}" />
 						</c:if>
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Name English:</legend>
+						<legend><fmt:message key="event.create.name.eng" bundle="${bundle}"/></legend>
 						<input name="nameEn" value="${nameEn}"/><br/>
 						</br>
 						<c:if test="${not empty errors.nameEn}">
-		        				<c:out value="${errors.nameEn}" />
+		        			<fmt:message key="${errors.nameEn}" bundle="${bundle}" var="errors_nameEn"/>
+		        			<c:out value="${errors_nameEn}" />
 						</c:if>
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Place Ukraine:</legend>
+						<legend><fmt:message key="event.create.place.ukr" bundle="${bundle}"/></legend>
 						<input name="placeUk" value="${placeUk}"/><br/>
 						</br>
 						<c:if test="${not empty errors.placeUk}">
-		        				<c:out value="${errors.placeUk}" />
+		        			<fmt:message key="${errors.placeUk}" bundle="${bundle}" var="errors_placeUk"/>
+		        			<c:out value="${errors_placeUk}" />
 						</c:if>
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Place English:</legend>
+						<legend><fmt:message key="event.create.place.eng" bundle="${bundle}"/></legend>
 						<input name="placeEn" value="${placeEn}"/><br/>
 						</br>
 						<c:if test="${not empty errors.placeEn}">
-		        				<c:out value="${errors.placeEn}" />
+		        			<fmt:message key="${errors.placeEn}" bundle="${bundle}" var="errors_placeEn"/>
+		        			<c:out value="${errors_placeEn}" />
 						</c:if>
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Date:</legend>
+						<legend><fmt:message key="event.create.date" bundle="${bundle}"/></legend>
 						<input type="date" name="date" value="${date}"/><br/>
 						</br>
 						<c:if test="${not empty errors.date}">
-		        				<c:out value="${errors.date}" />
+		        			<fmt:message key="${errors.date}" bundle="${bundle}" var="errors_date"/>
+		        			<c:out value="${errors_date}" />
 						</c:if>
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Time:</legend>
+						<legend><fmt:message key="event.create.time" bundle="${bundle}"/></legend>
 						<input type="time" name="time" value="${time}"/><br/>
 						</br>
 						<c:if test="${not empty errors.time}">
-		        				<c:out value="${errors.time}" />
+		        			<fmt:message key="${errors.time}" bundle="${bundle}" var="errors_time"/>
+		        			<c:out value="${errors_time}" />
 						</c:if>
 					</fieldset><br/>
 					
-					<input type="submit" value="Create event">								
+					<fmt:message key="event.create.button" bundle="${bundle}" var="createButton"/>
+					<input type="submit" value="${createButton}">								
 				</form>
 			</td>
 		</tr>

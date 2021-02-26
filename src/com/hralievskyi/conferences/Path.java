@@ -21,8 +21,10 @@ public final class Path {
 	public static final String PAGE_MODERATOR_EVENT = "/WEB-INF/jsp/moderator/event_details.jsp";
 	public static final String PAGE_ADD_REPORTS = "/WEB-INF/jsp/moderator/add_reports.jsp";
 	public static final String PAGE_MODERATOR_SPEAKERS = "/WEB-INF/jsp/moderator/speakers.jsp";
+	public static final String COMMAND_MODERATOR_SPEAKERS = "/app?command=moderator_speakers";
 	// speaker
 	public static final String PAGE_SPEAKER_CABINET = "/WEB-INF/jsp/speaker/speaker_cabinet.jsp";
 	public static final String COMMAND_SPEAKER_CABINET = "/app?command=speaker_cabinet";
+	public static final String PAGE_SP_CREATE_REPORT = "/WEB-INF/jsp/speaker/create_report.jsp";
 
 }

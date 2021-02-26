@@ -17,10 +17,8 @@
 			
 			<td class="content center">
 				<c:if test="${not empty errors}">
-				<c:set var="errorMessage">
-    				<fmt:message key="login.error" bundle="${bundle}"/>
-				</c:set>
-        				<c:out value="${errorMessage}"/>
+	    			<fmt:message key="login.error" bundle="${bundle}" var="errorMessage"/>
+        			<c:out value="${errorMessage}"/>
 				</c:if>
 				<form id="login_form" action="app" method="post">
 					<input type="hidden" name="lang" value="${empty param.lang ? 'en' : param.lang}"/>

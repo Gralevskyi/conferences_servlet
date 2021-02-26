@@ -12,12 +12,13 @@
 		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<tr>
 			<td class="content">
-				<h3>Add reports to ${name} </h3>
-				<h2>List of reports for adding</h2>
+				<h2><fmt:message key="event.add.reports" bundle="${bundle}"/> ${name} </h2>
+				
 			</td>
 		</tr>
 		<tr>
 			<td class="content">
+				<h3><fmt:message key="event.add.list" bundle="${bundle}"/></h3>
 				<form action="${pageContext.request.contextPath}/app" method="post">				
 					<input type="hidden" name="command" value="add_reports"/>
 					<input type="hidden" name="id" value="${id}"/> 

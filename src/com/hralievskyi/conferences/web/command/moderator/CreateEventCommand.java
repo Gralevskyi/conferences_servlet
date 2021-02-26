@@ -74,11 +74,11 @@ public class CreateEventCommand extends Command {
 		for (int i = 0; i < parameters.length; i++) {
 			if ("data".contentEquals(parameters[i]) || "time".contentEquals(parameters[i])) {
 				if (validateDateTime(request.getParameter(parameters[i]), parameters[i])) {
-					errors.put(parameters[i], Messages.ERR_WRANG_DATE_FORMAT + parameters[i]);
+					errors.put(parameters[i], "event.create.error.date");
 				}
 			} else {
 				if (validate(request.getParameter(parameters[i]))) {
-					errors.put(parameters[i], Messages.ERR_CAN_NOT_BE_EMPTY);
+					errors.put(parameters[i], "event.create.error.empty");
 				}
 
 			}

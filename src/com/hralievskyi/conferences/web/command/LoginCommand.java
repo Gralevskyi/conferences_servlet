@@ -33,14 +33,12 @@ public class LoginCommand extends Command {
 		LOG.debug("Command starts");
 
 		HttpSession session = request.getSession();
-
-		// obtain login and password from a request
 		String username = request.getParameter("login");
 		LOG.trace("Request parameter: login --> " + username);
 
 		String password = request.getParameter("password");
 		if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
-			request.setAttribute("errors", true);
+			request.setAttribute("errors", "login.error");
 			return Path.PAGE_LOGIN;
 		}
 

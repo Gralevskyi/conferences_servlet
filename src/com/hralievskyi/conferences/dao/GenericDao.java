@@ -15,7 +15,7 @@ public interface GenericDao<T> extends AutoCloseable {
 
 	void update(T entity) throws DBException;
 
-	void delete(int id);
+	void delete(long id) throws DBException;
 
 	void closeConn();
 

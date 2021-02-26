@@ -32,7 +32,7 @@ public class ManageSpeakersCommand extends Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 		LOG.debug("Command starts");
-		if ("GET".equals(request.getMethod())) {
+		if ("GET".equals(request.getMethod()) || "reload".equals(request.getAttribute("reload"))) {
 			try {
 				request.setAttribute("reports", reportService.findAll());
 				request.setAttribute("speakers", userService.getAllSpeakers());

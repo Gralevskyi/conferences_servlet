@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -116,26 +117,24 @@ public class JDBCEventDao extends JDBCGenericDao<Event> implements EventDao {
 	}
 
 	@Override
-	public List<Event> findAllForModerator() {
-		Map<Long, Event> events = new HashMap<>();
+	public List<Event> findAllForModerator(String query) {
+		List<Event> events = new LinkedList<>();
 		ResultSet rs = null;
 		Statement st = null;
 		LOG.debug("Start retrieving all events");
 		try {
 			st = connection.createStatement();
-			rs = st.executeQuery("SELECT e.*, count(distinct es.user_id) AS subscribers, count(distinct ev.user_id) AS visitors "
-					+ "FROM events e LEFT JOIN event_subscribers es ON e.id = es.event_id "
-					+ "LEFT JOIN event_visitors ev ON e.id = ev.event_id "
-					+ "GROUP BY e.id, e.name_en, e.name_uk, e.place_en, e.place_uk, e.date, e.time");
+			rs = st.executeQuery(query);
 			EventMapper eventMapper = new EventMapper();
 			while (rs.next()) {
 				Event event = eventMapper.extractFromResultSet(rs);
 				event.setSubscribersNumber(rs.getInt("subscribers"));
 				event.setVisitors(rs.getInt("visitors"));
-				event = eventMapper.makeUnique(events, event);
+				event.setReportsNumber(rs.getInt("reports"));
+				events.add(event);
 			}
 			LOG.debug("Retrieved all events");
-			return new ArrayList<>(events.values());
+			return events;
 		} catch (SQLException ex) {
 			LOG.error(Messages.ERR_CANNOT_OBTAIN_ALL_USERS, ex);
 			return null;
@@ -169,7 +168,7 @@ public class JDBCEventDao extends JDBCGenericDao<Event> implements EventDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(long id) {
 		// TODO Auto-generated method stub
 
 	}

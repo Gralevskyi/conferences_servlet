@@ -57,5 +57,6 @@ public class Messages {
 	public static final String ERR_CAN_NOT_UPDATE_EVENT = "Can't update event.";
 	public static final String ERR_CANNOT_OBTAIN_REPORTS = "Cannot obtain reports";
 	public static final String ERR_CANNOT_UPDATE_REPORT = "Cannot update report";
+	public static final String ERR_CANNOT_DELETE_REPORT = "Cannot delete report";
 
 }

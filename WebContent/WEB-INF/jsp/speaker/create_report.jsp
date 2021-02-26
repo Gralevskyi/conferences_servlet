@@ -12,7 +12,7 @@
 		<tr>
 			<td class="content center">
 				<form id="login_form" action="${pageContext.request.contextPath}/app" method="post">
-					<input type="hidden" name="command" value="moderator_create_report"/>
+					<input type="hidden" name="command" value="speaker_create"/>
 					<fieldset >
 						<legend><fmt:message key="report.topic.ukr" bundle="${bundle}"/></legend>
 						<input name="topicUk" value="${topicUk}"/><br/>
@@ -33,16 +33,8 @@
 						</c:if>
 					</fieldset><br/>
 					
-					<fieldset>
-						<legend><fmt:message key="table.speaker" bundle="${bundle}"/></legend>
-						<select name="speaker_id" value="${speaker.id}">
-							<c:forEach var="speaker" items="${speakers}">
-								<option value="${speaker.id }"> ${speaker.getLocalName(sessionScope.locale)} </option>
-							</c:forEach>
-						</select>
-					</fieldset></br>
 					<fmt:message key="report.create.button" bundle="${bundle}" var="createButton"/>
-					<input type="submit" value="${createButton}">								
+					<input type="submit" value="${createButton}">							
 				</form>
 			</td>
 		</tr>

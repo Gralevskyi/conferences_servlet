@@ -19,13 +19,6 @@ public class EventService {
 		}
 	}
 
-	public List<Event> getAllForModerator() throws Exception {
-		LOG.debug("Event service " + this + " starts");
-		try (EventDao dao = daoFactory.createEventDao()) {
-			return dao.findAllForModerator();
-		}
-	}
-
 	public Event getByIdAndUser(long eventId, long userId) throws Exception {
 		LOG.debug("Event service " + this + " starts");
 		try (EventDao dao = daoFactory.createEventDao()) {
@@ -80,6 +73,32 @@ public class EventService {
 		try (EventDao dao = daoFactory.createEventDao()) {
 			dao.addNewReports(reports, eventId);
 		}
+	}
+
+	public List<Event> getAllForModerator(String orderBy, String whereDate) throws Exception {
+		LOG.debug("Event service " + this + " starts");
+		try (EventDao dao = daoFactory.createEventDao()) {
+			return dao.findAllForModerator(createQueryForSorting(orderBy, whereDate));
+		}
+	}
+
+	private String createQueryForSorting(String orderBy, String whereDate) {
+		StringBuilder query = new StringBuilder("SELECT e.*, count(distinct es.user_id) AS subscribers, "
+				+ "count(distinct ev.user_id) AS visitors, count(distinct er.report_id) as reports "
+				+ "FROM events e LEFT JOIN event_subscribers es ON e.id = es.event_id "
+				+ "LEFT JOIN event_visitors ev ON e.id = ev.event_id "
+				+ "LEFT JOIN event_reports er ON e.id = er.event_id ");
+		if (whereDate != null) {
+			query.append(whereDate);
+		}
+		query.append(" GROUP BY e.id, e.name_en, e.name_uk, e.place_en, e.place_uk, e.date, e.time ORDER BY ");
+
+		if (orderBy != null) {
+			query = query.append(orderBy + " DESC;");
+		} else {
+			query = query.append(" e.date;");
+		}
+		return query.toString();
 	}
 
 }

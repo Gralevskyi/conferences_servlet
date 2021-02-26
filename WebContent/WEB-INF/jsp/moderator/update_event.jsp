@@ -15,7 +15,7 @@
 					<input type="hidden" name="command" value="update"/>
 					<input type="hidden" name="id" value="${id}"/>
 					<fieldset >
-						<legend>Name Ukraine:</legend>
+						<legend><fmt:message key="event.create.name.ukr" bundle="${bundle}"/></legend>
 						<input name="nameUk" value="${nameUk}"/><br/>
 						</br>
 						<c:if test="${not empty errors.nameUk}">
@@ -24,7 +24,7 @@
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Name English:</legend>
+						<legend><fmt:message key="event.create.name.eng" bundle="${bundle}"/></legend>
 						<input name="nameEn" value="${nameEn}"/><br/>
 						</br>
 						<c:if test="${not empty errors.nameEn}">
@@ -33,7 +33,7 @@
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Place Ukraine:</legend>
+						<legend><fmt:message key="event.create.place.ukr" bundle="${bundle}"/></legend>
 						<input name="placeUk" value="${placeUk}"/><br/>
 						</br>
 						<c:if test="${not empty errors.placeUk}">
@@ -42,7 +42,7 @@
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Place English:</legend>
+						<legend><fmt:message key="event.create.place.eng" bundle="${bundle}"/></legend>
 						<input name="placeEn" value="${placeEn}"/><br/>
 						</br>
 						<c:if test="${not empty errors.placeEn}">
@@ -51,7 +51,7 @@
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Date:</legend>
+						<legend><fmt:message key="event.create.date" bundle="${bundle}"/></legend>
 						<input type="date" name="date" value="${date}"/><br/>
 						</br>
 						<c:if test="${not empty errors.date}">
@@ -60,15 +60,15 @@
 					</fieldset><br/>
 					
 					<fieldset >
-						<legend>Time:</legend>
+						<legend><fmt:message key="event.create.time" bundle="${bundle}"/></legend>
 						<input type="time" name="time" value="${time}"/><br/>
 						</br>
 						<c:if test="${not empty errors.time}">
 		        				<c:out value="${errors.time}" />
 						</c:if>
 					</fieldset><br/>
-					
-					<input type="submit" value="Update event">								
+					<fmt:message key="event.update.button" bundle="${bundle}" var="updateButton"/>
+					<input type="submit" value="${updateButton}">								
 				</form>
 			</td>
 		</tr>

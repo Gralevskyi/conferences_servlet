@@ -15,7 +15,7 @@ public interface EventDao extends GenericDao<Event> {
 
 	void visit(long eventId, long userId) throws DBException;
 
-	List<Event> findAllForModerator();
+	List<Event> findAllForModerator(String query);
 
 	void addNewReports(String[] reports, long eventId) throws DBException;
 

@@ -1,4 +1,4 @@
-package com.hralievskyi.conferences.web.command.moderator;
+package com.hralievskyi.conferences.web.command.speaker;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,15 +21,15 @@ import com.hralievskyi.conferences.service.ReportService;
 import com.hralievskyi.conferences.service.UserService;
 import com.hralievskyi.conferences.web.command.Command;
 
-public class ModeratorCreateReportCommand extends Command {
-	private static final long serialVersionUID = 4756737766234922999L;
+public class SpeakerCreateReportCommand extends Command {
+	private static final long serialVersionUID = -851898286768129178L;
 
-	private static final Logger LOG = Logger.getLogger(ModeratorCreateReportCommand.class);
+	private static final Logger LOG = Logger.getLogger(SpeakerCreateReportCommand.class);
 	private ReportService reportService;
 	private UserService userService;
 	private String[] parameters = { "topicUk", "topicEn" };
 
-	public ModeratorCreateReportCommand() {
+	public SpeakerCreateReportCommand() {
 		reportService = new ReportService();
 		userService = new UserService();
 	}
@@ -38,14 +38,8 @@ public class ModeratorCreateReportCommand extends Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 		LOG.debug("Command starts");
 		if ("GET".equals(request.getMethod())) {
-			try {
-				request.setAttribute("speakers", userService.getAllSpeakers());
-			} catch (Exception ex) {
-				LOG.error(Messages.ERR_CANNOT_OBTAIN_ALL_SPEAKERS, ex);
-				throw new DBException(Messages.ERR_CANNOT_OBTAIN_ALL_SPEAKERS, ex);
-			}
 			LOG.debug("Command finished");
-			return Path.PAGE_MOD_CREATE_REPORT;
+			return Path.PAGE_SP_CREATE_REPORT;
 		}
 		return processPost(request, response);
 	}
@@ -57,26 +51,20 @@ public class ModeratorCreateReportCommand extends Command {
 			for (int i = 0; i < parameters.length; i++) {
 				request.setAttribute(parameters[i], request.getParameter(parameters[i]));
 			}
-			try {
-				request.setAttribute("speakers", userService.getAllSpeakers());
-			} catch (Exception ex) {
-				LOG.error(Messages.ERR_CANNOT_OBTAIN_ALL_SPEAKERS, ex);
-				throw new DBException(Messages.ERR_CANNOT_OBTAIN_ALL_SPEAKERS, ex);
-			}
 			LOG.debug("Command finished");
-			return Path.PAGE_MOD_CREATE_REPORT;
+			return Path.PAGE_SP_CREATE_REPORT;
 		} else {
 			try {
 				LOG.trace("Try to create report: " + request.getParameter("topicEn"));
-				// id of moderator is 1 and author of report is moderator so User is created
-				// with id 1
+				User speaker = (User) request.getSession().getAttribute("user");
 				Report report = new Report(request.getParameter("topicEn"),
 						request.getParameter("topicUk"),
-						new User(1),
-						new Speaker(Long.parseLong(request.getParameter("speaker_id"))));
+						new User(speaker.getId()),
+						new Speaker(speaker.getId()));
+				report.setSuggested(true);
 				reportService.createReport(report);
 				LOG.trace("Succesfully crete report: " + request.getParameter("nameEn"));
-				return Path.COMMAND_MODERATOR_MAIN;
+				return Path.COMMAND_USER_MAIN;
 			} catch (Exception ex) {
 				LOG.error(Messages.ERR_CAN_NOT_CREATE_REPORT, ex);
 				throw new DBException(Messages.ERR_CAN_NOT_CREATE_REPORT, ex);

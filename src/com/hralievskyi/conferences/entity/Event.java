@@ -20,6 +20,7 @@ public class Event extends Entity {
 	private boolean visited;
 	private int subscribersNumber;
 	private int visitors;
+	private int reportsNumber;
 	private Set<Report> reports = new HashSet<>();
 	private Set<User> subscribers = new HashSet<>();
 
@@ -179,6 +180,14 @@ public class Event extends Entity {
 
 	public void setVisitors(int visitors) {
 		this.visitors = visitors;
+	}
+
+	public int getReportsNumber() {
+		return reportsNumber;
+	}
+
+	public void setReportsNumber(int reportsNumber) {
+		this.reportsNumber = reportsNumber;
 	}
 
 }

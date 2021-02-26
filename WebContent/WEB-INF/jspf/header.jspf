@@ -16,66 +16,71 @@ Localization
 <fmt:setBundle basename="messages" var="bundle"/>
 
 <tr>
-<td id="header">
+	<td id="header">
 
-	<div id="leftHeader">
-	
-		<c:choose>
-			<c:when test="${userRole.name == 'moderator' and title ne 'Moderator'}">
-				<a href="${pageContext.request.contextPath}/app?command=moderator">All events</a> &nbsp;
-			</c:when>
-			<c:when test="${userRole.name == 'speaker' and title ne 'User'}">
-				<a href="${pageContext.request.contextPath}/app?command=user">All events</a> &nbsp;
-			</c:when>
-			<c:when test="${userRole.name == 'user' and title ne 'User'}">
-				<a href="${pageContext.request.contextPath}/app?command=user">All events</a> &nbsp;
-			</c:when>
-			<c:when test="${userRole.name == 'user' and title == 'User'}">
-				<a href="${pageContext.request.contextPath}/app?command=user_cabinet">Cabinet</a> &nbsp;
-			</c:when>
-		</c:choose>
-		<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
-			<a href="${pageContext.request.contextPath}/app?command=create_event">Create event</a> &nbsp;
-		</c:if>
-		<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
-			<a href="${pageContext.request.contextPath}/app?command=moderator_create_report">Create report</a> &nbsp;
-		</c:if>
-		<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
-			<a href="${pageContext.request.contextPath}/app?command=moderator_speakers">Speakers-reports</a> &nbsp;
-		</c:if>
-		<c:if test="${userRole.name == 'speaker' and title == 'User'}">
-			<a href="${pageContext.request.contextPath}/app?command=speaker_cabinet">Cabinet</a> &nbsp;
-		</c:if>
-	</div>
-
-	<div id="rightHeader" >
-		<ul>
-			<li><c:out value="${user.username}"/></li>
+		<ul id="navbar">
 			<li>
-				<c:if test="${not empty userRole}">
-					<c:out value="(${userRole.name})"/>
+				<c:choose>
+					<c:when test="${userRole.name == 'moderator' and title ne 'Moderator'}">
+						<a href="${pageContext.request.contextPath}/app?command=moderator"><fmt:message key="header.all.events" bundle="${bundle}"/></a> &nbsp;
+					</c:when>
+					<c:when test="${userRole.name == 'speaker' and title ne 'User'}">
+						<a href="${pageContext.request.contextPath}/app?command=user"><fmt:message key="header.all.events" bundle="${bundle}"/></a> &nbsp;
+					</c:when>
+					<c:when test="${userRole.name == 'user' and title ne 'User'}">
+						<a href="${pageContext.request.contextPath}/app?command=user"><fmt:message key="header.all.events" bundle="${bundle}"/></a> &nbsp;
+					</c:when>
+					<c:when test="${userRole.name == 'user' and title == 'User'}">
+						<a href="${pageContext.request.contextPath}/app?command=user_cabinet"><fmt:message key="header.cabinet" bundle="${bundle}"/></a> &nbsp;
+					</c:when>
+				</c:choose>
+			</li>
+			<li>
+				<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
+					<a href="${pageContext.request.contextPath}/app?command=create_event"><fmt:message key="header.create.event" bundle="${bundle}"/></a> &nbsp;
 				</c:if>
 			</li>
-			<li><a href="?lang=en&command=${sessionScope.command}"><fmt:message key="label.lang.en" bundle="${bundle}"/></a></li>
-			<li><a href="?lang=uk&command=${sessionScope.command}"><fmt:message key="label.lang.uk" bundle="${bundle}"/></a></li>
+
 			<li>
+				<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
+					<a href="${pageContext.request.contextPath}/app?command=moderator_create_report"><fmt:message key="header.create.report" bundle="${bundle}"/></a> &nbsp;
+				</c:if>
+			</li>
+			
+			<li>
+				<c:if test="${userRole.name == 'moderator' and title == 'Moderator'}">
+					<a href="${pageContext.request.contextPath}/app?command=moderator_speakers"><fmt:message key="header.speakers.reports" bundle="${bundle}"/></a> &nbsp;
+				</c:if>
+			</li>
+			
+			<li>
+				<c:if test="${userRole.name == 'speaker' and title == 'User'}">
+					<a href="${pageContext.request.contextPath}/app?command=speaker_cabinet"><fmt:message key="header.cabinet" bundle="${bundle}"/></a> &nbsp;
+				</c:if>
+			</li>
+			
+			<li>
+				<c:if test="${userRole.name == 'speaker' and title == 'User'}">
+					<a href="${pageContext.request.contextPath}/app?command=speaker_create"><fmt:message key="header.create.report" bundle="${bundle}"/></a> &nbsp;
+				</c:if>
+			</li>
+
+			<li style="float:right"><a href="?lang=en&command=${sessionScope.command}"><fmt:message key="label.lang.en" bundle="${bundle}"/></a></li>
+			<li style="float:right"><a href="?lang=uk&command=${sessionScope.command}"><fmt:message key="label.lang.uk" bundle="${bundle}"/></a></li>
+			
+			<li style="float:right">
 				<c:if test="${not empty userRole}">
 					<a href="${pageContext.request.contextPath}/app?command=logout">
 						<fmt:message key="header.logout" bundle="${bundle}"/>
 					</a> 
 				</c:if>	
 			</li>
+			<li style="float:right">
+				<c:if test="${empty user and title ne 'Login'}">
+					<a href="${pageContext.request.contextPath}/app?command=login"><fmt:message key="login.button" bundle="${bundle}"/></a>
+				</c:if>
+			</li>
 		</ul>
-
-	
-	</div>
-
-	<c:if test="${empty user and title ne 'Login'}">
-		<div id="rightHeader">
-			<a href="${pageContext.request.contextPath}/app?command=login">Login</a>
-		</div>
-	</c:if>
-
 	</td>
 </tr>
 

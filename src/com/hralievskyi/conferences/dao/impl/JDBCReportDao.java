@@ -26,17 +26,34 @@ public class JDBCReportDao extends JDBCGenericDao<Report> implements ReportDao {
 	@Override
 	public void create(Report report) throws DBException {
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
 		try {
-			pstmt = connection.prepareStatement("INSERT INTO reports VALUES(DEFAULT, ?, ?, ?, ?, ?);");
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement("INSERT INTO reports VALUES(DEFAULT, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, report.getTopicEn());
 			pstmt.setString(2, report.getTopicUk());
 			pstmt.setLong(3, report.getAuthor().getId());
 			pstmt.setBoolean(4, report.isAccepted());
 			pstmt.setBoolean(5, report.isSuggested());
-			pstmt.executeUpdate();
+			if (pstmt.executeUpdate() > 0) {
+				rs = pstmt.getGeneratedKeys();
+				if (rs.next()) {
+					report.setId(rs.getLong(1));
+				}
+			}
+			pstmt2 = connection.prepareStatement("INSERT INTO speaker_reports (speaker_id, report_id) VALUES (?, ?) ");
+			pstmt2.setLong(1, report.getSpeaker().getId());
+			pstmt2.setLong(2, report.getId());
+			pstmt2.executeUpdate();
+			connection.commit();
+			connection.setAutoCommit(true);
 		} catch (SQLException ex) {
+			rollback();
 			throw new DBException(Messages.ERR_CAN_NOT_CREATE_REPORT, ex);
 		} finally {
+			closeSt(pstmt2);
+			closeRs(rs);
 			closeSt(pstmt);
 			closeConn();
 		}
@@ -44,14 +61,14 @@ public class JDBCReportDao extends JDBCGenericDao<Report> implements ReportDao {
 	}
 
 	@Override
-	public List<Report> findNewEventsFor(long eventid) {
+	public List<Report> findNewReportsFor(long eventid) {
 		List<Report> reports = new ArrayList<>();
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
-		LOG.debug("Start retireving all reports");
+		LOG.debug("Start retrieving all reports");
 		try {
 			pstmt = connection.prepareStatement("SELECT r.* FROM reports r "
-					+ "LEFT JOIN event_reports er ON r.id = er.report_id WHERE er.event_id <> ?  OR er.event_id IS NULL;");
+					+ "LEFT JOIN event_reports er ON r.id = er.report_id WHERE r.suggested = 0 AND (er.event_id <> ?  OR er.event_id IS NULL);");
 			pstmt.setLong(1, eventid);
 			rs = pstmt.executeQuery();
 			ReportMapper reportMapper = new ReportMapper();
@@ -138,7 +155,7 @@ public class JDBCReportDao extends JDBCGenericDao<Report> implements ReportDao {
 		PreparedStatement pstmt2 = null;
 		try {
 			connection.setAutoCommit(false);
-			pstmt = connection.prepareStatement("INSERT INTO speaker_reports (speaker_id, report_id) VALUES (?, ?)\r\n" +
+			pstmt = connection.prepareStatement("INSERT INTO speaker_reports (speaker_id, report_id) VALUES (?, ?) " +
 					"ON DUPLICATE KEY UPDATE speaker_id = VALUES (speaker_id)");
 			pstmt.setLong(1, report.getSpeaker().getId());
 			pstmt.setLong(2, report.getId());
@@ -153,8 +170,8 @@ public class JDBCReportDao extends JDBCGenericDao<Report> implements ReportDao {
 			rollback();
 			throw new DBException(Messages.ERR_CANNOT_UPDATE_REPORT, ex);
 		} finally {
-			closeSt(pstmt);
 			closeSt(pstmt2);
+			closeSt(pstmt);
 			closeConn();
 		}
 	}
@@ -170,6 +187,30 @@ public class JDBCReportDao extends JDBCGenericDao<Report> implements ReportDao {
 			rollback();
 			throw new DBException(Messages.ERR_CANNOT_UPDATE_REPORT, ex);
 		} finally {
+			closeSt(pstmt);
+			closeConn();
+		}
+	}
+
+	@Override
+	public void acceptSuggested(long reportId) throws DBException {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement("UPDATE reports SET accepted = 1 WHERE id = ?;");
+			pstmt.setLong(1, reportId);
+			pstmt.executeUpdate();
+			pstmt2 = connection.prepareStatement("UPDATE reports SET suggested = 0 WHERE id = ?;");
+			pstmt2.setLong(1, reportId);
+			pstmt2.executeUpdate();
+			connection.commit();
+			connection.setAutoCommit(true);
+		} catch (SQLException ex) {
+			rollback();
+			throw new DBException(Messages.ERR_CANNOT_UPDATE_REPORT, ex);
+		} finally {
+			closeSt(pstmt2);
 			closeSt(pstmt);
 			closeConn();
 		}
@@ -193,8 +234,27 @@ public class JDBCReportDao extends JDBCGenericDao<Report> implements ReportDao {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(long reportId) throws DBException {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement("DELETE FROM reports WHERE id = ?;");
+			pstmt.setLong(1, reportId);
+			pstmt.executeUpdate();
+			pstmt2 = connection.prepareStatement("DELETE FROM speaker_reports WHERE report_id = ?;");
+			pstmt2.setLong(1, reportId);
+			pstmt2.executeUpdate();
+			connection.commit();
+			connection.setAutoCommit(true);
+		} catch (SQLException ex) {
+			rollback();
+			throw new DBException(Messages.ERR_CANNOT_UPDATE_REPORT, ex);
+		} finally {
+			closeSt(pstmt2);
+			closeSt(pstmt);
+			closeConn();
+		}
 
 	}
 

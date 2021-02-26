@@ -96,7 +96,7 @@ public class JDBCUserDao extends JDBCGenericDao<User> implements UserDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(long id) {
 		// TODO Auto-generated method stub
 
 	}

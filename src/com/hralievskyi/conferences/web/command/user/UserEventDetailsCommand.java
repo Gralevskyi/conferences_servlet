@@ -1,6 +1,7 @@
 package com.hralievskyi.conferences.web.command.user;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,10 @@ public class UserEventDetailsCommand extends Command {
 			User user = (User) request.getSession().getAttribute("user");
 			Event event = eventService.getByIdAndUser(Long.parseLong(request.getParameter("id")), user.getId());
 			request.setAttribute("event", event);
-			boolean isSubscribed = event.getSubscribers().iterator().next().getId() != -1;
+			boolean isSubscribed = true;
+			if (event.getDate().isAfter(LocalDate.now())) {
+				isSubscribed = event.getSubscribers().iterator().next().getId() != -1;
+			}
 			request.setAttribute("subscribed", isSubscribed);
 		} catch (Exception ex) {
 			throw new DBException("user.event.error", ex);

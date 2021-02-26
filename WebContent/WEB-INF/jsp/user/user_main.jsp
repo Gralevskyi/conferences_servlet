@@ -12,14 +12,14 @@
 		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<tr>
 			<td class="content">
-				<h3>User cabinet</h3>
+				<h3><span><fmt:message key="header.conferences" bundle="${bundle}"/></span></h3>
 				<table id="events_table" class="cust_table">
 					<thead>
 						<tr>
-							<td>Name</td>
-							<td>Place</td>
-							<td>Date</td>
-							<td>Time</td>
+							<td><fmt:message key="table.name" bundle="${bundle}"/></td>
+							<td><fmt:message key="table.place" bundle="${bundle}"/></td>
+							<td><fmt:message key="table.date" bundle="${bundle}"/></td>
+							<td><fmt:message key="table.time" bundle="${bundle}"/></td>
 						</tr>
 					</thead>
 					<c:forEach var="event" items="${events}">

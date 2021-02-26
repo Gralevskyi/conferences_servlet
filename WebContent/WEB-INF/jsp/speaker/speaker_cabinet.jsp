@@ -12,12 +12,11 @@
 		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<tr>
 			<td class="content">
-				<h3>Speaker Cabinet</h3>
-				<h2>Accepted reports</h2>
+				<h3><fmt:message key="speaker.accepted.reports" bundle="${bundle}"/></h3>
 				<table class="cust_table">
 					<thead>
 						<tr>
-							<td>Topic</td>
+							<td><fmt:message key="table.topic" bundle="${bundle}"/></td>
 						</tr>
 					</thead>
 					<c:forEach var="report" items="${reports}">
@@ -30,20 +29,39 @@
 				</table>	
 			</td>
 		</tr>
-		<tr>
+				<tr>
 			<td class="content">
-				<h2>Not accepted reports</h2>
+				<h3><fmt:message key="speaker.suggested.reports" bundle="${bundle}"/></h3>
 				<table class="cust_table">
 					<thead>
 						<tr>
-							<td>Topic</td>
-							<td>Accept</td>
-							<td>Refuse</td>
+							<td><fmt:message key="table.topic" bundle="${bundle}"/></td>
+						</tr>
+					</thead>
+					<c:forEach var="report" items="${reports}">
+						<c:if test="${report.suggested}">
+							<tr>
+								<td>${report.getLocalTopic(sessionScope.locale)}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+				</table>	
+			</td>
+		</tr>
+		<tr>
+			<td class="content">
+				<h3><fmt:message key="speaker.not.accepted.reports" bundle="${bundle}"/></h3>
+				<table class="cust_table">
+					<thead>
+						<tr>
+							<td><fmt:message key="table.topic" bundle="${bundle}"/></td>
+							<td><fmt:message key="speaker.cabinet.accept" bundle="${bundle}"/></td>
+							<td><fmt:message key="speaker.cabinet.refuse" bundle="${bundle}"/></td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="report" items="${reports}">
-							<c:if test="${not report.accepted}">
+							<c:if test="${not report.accepted and not report.suggested}">
 								<tr>
 									<td>${report.getLocalTopic(sessionScope.locale)}</td>
 									<td>
